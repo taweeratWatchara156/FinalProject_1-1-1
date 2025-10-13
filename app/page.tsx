@@ -1,103 +1,78 @@
-import Image from "next/image";
+"use client"
+import Footer from "@/components/footer";
+import { Image, Radio, RadioChangeEvent, Select, SelectProps, Tag } from "antd";
+import { useState } from "react";
+import { AiFillLike } from "react-icons/ai";
+import { FaEye } from "react-icons/fa";
 
 export default function Home() {
+    const [subject, setSubjet] = useState<string>("math")
+    const [filter, setFilter] = useState<string>("latest")
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="flex-1 pt-30">
+        {/* Title */}
+        <div className="flex gap-5ิ w-fit pb-20 mx-auto">
+          <h1 className="text-xl font">สรุปทั้งหมด ( 128 )</h1>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <div className="flex flex-col gap-5 px-10">
+          <div className="flex gap-2">
+            <Radio.Group defaultValue={"latest"} onChange={(e:RadioChangeEvent) => setFilter(e.target.value)}>
+              <Radio.Button value="latest">ใหม่ที่สุด</Radio.Button>
+              <Radio.Button value="oldest">เก่าที่สุด</Radio.Button>
+              <Radio.Button value="mostviewed">เข้าชมมากที่สุด</Radio.Button>
+              <Radio.Button value="mostliked">กดไลค์มากที่สุด</Radio.Button>
+            </Radio.Group>
+          </div>
+          
+          <div className="grid grid-cols-5 gap-10">
+            <div className="duration-200 hover:scale-105 cursor-pointer active:scale-100 hover:shadow-2xl relative p-4 gap-2 flex flex-col w-[320px] justify-center shadow-xl border-gray-200 border rounded-lg">
+              <div className="flex gap-2">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
+                  alt="default profile" className="w-[25px] rounded-full"/>
+                <span>Admin</span>
+              </div>
+
+
+              <div className="flex gap-2">
+                {
+                  ["วิทยาศาสตร์", "ประถมศึกษา"].map((v, index) => {
+                    return <div key={index} className="text-sm px-1 border-1 rounded-sm border-gray-400 text-gray-500">
+                        {v}
+                    </div>
+                  })
+                }
+              </div>
+              
+              <div className="relative w-full h-[200px] overflow-hidden rounded-md border-3 border-gray-200 border-dotted">
+                <Image src="https://static.trueplookpanya.com/tppy/member/m_665000_667500/665461/cms/images/%E0%B9%84%E0%B8%AD%E0%B9%80%E0%B8%94%E0%B8%B5%E0%B8%A2%E0%B8%88%E0%B8%94%E0%B8%8A%E0%B8%B5%E0%B8%97%E0%B8%AA%E0%B8%A3%E0%B8%B8%E0%B8%9B_01.jpg"/>
+              </div>
+
+              {/* Post title */}
+              <h1 className="text-lg">สรุปวิทยาศาสตร์</h1>
+
+              {/* Like and view */}
+              <div className="flex justify-between flex-row-reverse">
+                  <div className="flex gap-2">
+                    <div className="flex items-center gap-1 text-gray-500">
+                      <AiFillLike/>
+                      <span>200</span>
+                    </div>
+                    <div className="flex items-center gap-1 text-gray-500">
+                      <FaEye/>
+                      <span>200</span>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Descrition before footer */}
+        <div className="flex flex-col gap-5 items-center text-xl py-30">
+            <h1 className="font-bold">Final Project</h1>
+            <p className="text-center w-2/3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores omnis similique perspiciatis quaerat reprehenderit, quidem quasi nisi cumque explicabo praesentium, reiciendis beatae expedita vero doloribus magni eum id fuga dolore molestiae aliquid officia? Ad ullam quod similique quidem! Molestias sapiente ut aliquid amet eaque, recusandae maxime distinctio esse praesentium minus!</p>
+        </div>
     </div>
   );
 }
