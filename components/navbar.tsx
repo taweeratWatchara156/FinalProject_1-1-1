@@ -1,21 +1,29 @@
 "use client"
 
 import { Select } from "antd"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { FaAngleDown, FaCog, FaGraduationCap, FaSearch } from "react-icons/fa"
 import { RiLogoutBoxRLine } from "react-icons/ri"
 import { SiGoogledocs } from "react-icons/si"
+import useSimpleSort from "./global_states/useSimpleSort"
 
 export default function Navbar() {
     const router = useRouter()
-    const [subject, setSubjet] = useState<string>("all")
+    const pathName = usePathname()
+    const subject = useSimpleSort((state) => state.subject)
+    const setSubject = useSimpleSort((state) => state.setSubject)
     const [grade, setGrade] = useState<string>("elementary")
     const [searchSubject, setSearchSubject] = useState<string>("math")
     const [showProfileSetting, setShowProfileSettings] = useState<boolean>(false)
     const [showSubNav, setShowSubNav] = useState<boolean>(false)
     const [showSearchBar, setShowSearchBar] = useState<boolean>(false)
     const [fixedNavbar, setFixedNavbar] = useState<boolean>(false)
+
+    const handleSimpleSort = (value:string) => {
+        setSubject(value)
+        if (pathName != "/") router.push("/")
+    }
 
     const sorting_data = {
         "all": "ทั้งหมด",
@@ -66,7 +74,7 @@ export default function Navbar() {
   return (
     <div className={`${fixedNavbar ? 'fixed' : ''} z-100 w-full`}>
         <div className="w-full flex justify-between items-center bg-[#86B0BD] px-6 sm:px-10 lg:px-15 py-5">
-            <div className={`flex gap-10 items-center`}>
+            <div className={`flex gap-5 items-center`}>
                 {/* Logo */}
                 <div className="flex gap-2 font-bold text-white text-xl lg:text-2xl items-center cursor-pointer" onClick={() => router.push("/")}>
                     <FaGraduationCap className="text-2xl lg:text-3xl"/>
@@ -112,10 +120,10 @@ export default function Navbar() {
                     <FaSearch/>
                 </div>
                 <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
-                  alt="default profile" className="w-[30px] rounded-full"/>
-                <span className="text-white flex items-center gap-2">{username_length_limit("Taweerat Watcharamanokarn")} <FaAngleDown onClick={() => setShowProfileSettings(!showProfileSetting)} className={`${showProfileSetting ? 'rotate-180' : ''} hover:scale-105 duration-200 cursor-pointer`}/></span>
+                  alt="default profile" className="w-[30px] rounded-full" onClick={() => setShowProfileSettings(!showProfileSetting)}/>
+                <span className="hidden md:flex text-white items-center gap-2">{username_length_limit("Taweerat Watcharamanokarn")} <FaAngleDown onClick={() => setShowProfileSettings(!showProfileSetting)} className={`${showProfileSetting ? 'rotate-180' : ''} hover:scale-105 duration-200 cursor-pointer`}/></span>
                 {/* Profile settings */}
-                <div className={`${showProfileSetting ? 'h-auto' : 'h-0'} rounded-b-md justify-center flex flex-col duration-200 overflow-hidden absolute bg-[#86B0BD] top-12 w-full`}>
+                <div className={`${showProfileSetting ? 'h-[120px]' : 'h-0'} shadow-md rounded-b-md justify-center flex flex-col duration-200 overflow-hidden absolute bg-[#86B0BD] top-12 right-0 w-[162px] md:w-full`}>
                     <span className="w-full flex justify-between hover:bg-[#a1cad6] duration-200 cursor-pointer py-2 px-2 text-white">
                         <span className="flex items-center gap-2"><FaCog/>Settings</span>
                     </span>
@@ -130,10 +138,10 @@ export default function Navbar() {
         </div>
 
         {/* simple sorting post in home page */}
-        <div className={`${showSubNav ? 'h-[364px] md:h-auto' : 'h-0 md:h-auto'} md:auto duration-200 overflow-hidden flex bg-white md:bg-none flex-col md:flex-row gap-0 md:gap-5 lg:gap-8 xl:gap-15 justify-center px-0 md:px-20`}>
+        <div className={`${showSubNav ? 'h-[364px] md:h-auto' : 'h-0 md:h-auto'} md:auto duration-200 overflow-hidden flex md:bg-none flex-col md:flex-row gap-0 md:gap-5 lg:gap-8 xl:gap-15 justify-center px-0 md:px-20`}>
             {
                Object.entries(sorting_data).map(([key, value], index) => {
-                return <button key={index} className={`${subject == key ? 'bg-[#86B0BD]' : 'bg-[#648995]'} ${fixedNavbar ? 'shadow-2xl' : ''} duration-200 text-white py-4 md:py-2 lg:py-3 xl:py-5 px-6 lg:px-8 xl:px-10 md:rounded-b-3xl cursor-pointer text-sm lg:text-base`} onClick={() => setSubjet(key)}>{value}</button>
+                return <button key={index} className={`${subject == key ? 'bg-[#86B0BD]' : 'bg-[#648995]'} ${fixedNavbar ? 'shadow-2xl' : ''} duration-200 text-white py-4 md:py-2 lg:py-3 xl:py-5 px-6 lg:px-8 xl:px-10 md:rounded-b-3xl cursor-pointer text-sm lg:text-base`} onClick={() => handleSimpleSort(key)}>{value}</button>
                })
             }
         </div>

@@ -1,5 +1,6 @@
 "use client"
 import Footer from "@/components/footer";
+import useSimpleSort from "@/components/global_states/useSimpleSort";
 import { Image, Radio, RadioChangeEvent, Select, SelectProps, Tag } from "antd";
 import { useState } from "react";
 import { AiFillLike } from "react-icons/ai";
@@ -152,23 +153,33 @@ export default function Home() {
       },
     ]
   return (
-    <div className="flex-1 pt-30">
+    <div className="flex-1">
         {/* Title */}
-        <div className="flex gap-5ิ w-fit pb-20 mx-auto">
-          <h1 className="text-xl font">สรุปทั้งหมด ( {test_post_datas.length} )</h1>
+        <div className="flex gap-5ิ w-fit py-10 lg:py-20 mx-auto">
+          <h1 className="text-lg lg:text-xl font">สรุปทั้งหมด ( {test_post_datas.length} )</h1>
         </div>
 
-        <div className="flex flex-col gap-5 px-10">
-          <div className="flex gap-2">
-            <Radio.Group defaultValue={"latest"} onChange={(e:RadioChangeEvent) => setFilter(e.target.value)}>
-              <Radio.Button value="latest">ใหม่ที่สุด</Radio.Button>
-              <Radio.Button value="oldest">เก่าที่สุด</Radio.Button>
-              <Radio.Button value="mostviewed">เข้าชมมากที่สุด</Radio.Button>
-              <Radio.Button value="mostliked">กดไลค์มากที่สุด</Radio.Button>
-            </Radio.Group>
+        <div className="flex flex-col gap-5 px-2 sm:px-10">
+          <div className="flex gap-2 justify-center sm:justify-start">
+            <div className="flex sm:hidden">
+              <Radio.Group  size="small" defaultValue={"latest"} onChange={(e:RadioChangeEvent) => setFilter(e.target.value)}>
+                <Radio.Button value="latest">ใหม่ที่สุด</Radio.Button>
+                <Radio.Button value="oldest">เก่าที่สุด</Radio.Button>
+                <Radio.Button value="mostviewed">เข้าชมมากที่สุด</Radio.Button>
+                <Radio.Button value="mostliked">กดไลค์มากที่สุด</Radio.Button>
+              </Radio.Group>
+            </div>
+            <div className="hidden sm:flex">
+              <Radio.Group  size="middle" defaultValue={"latest"} onChange={(e:RadioChangeEvent) => setFilter(e.target.value)}>
+                <Radio.Button value="latest">ใหม่ที่สุด</Radio.Button>
+                <Radio.Button value="oldest">เก่าที่สุด</Radio.Button>
+                <Radio.Button value="mostviewed">เข้าชมมากที่สุด</Radio.Button>
+                <Radio.Button value="mostliked">กดไลค์มากที่สุด</Radio.Button>
+              </Radio.Group>
+            </div>
           </div>
           
-          <div className="grid grid-cols-5 gap-8">
+          <div className="grid grid-cols-[repeat(auto-fit,_minmax(320px,_1fr))] gap-8 justify-items-center">
             {test_post_datas.map((post, index) => {
               return (
                 <div key={index} className="duration-200 hover:scale-105 cursor-pointer active:scale-100 hover:shadow-2xl relative p-4 gap-2 flex flex-col w-[320px] justify-center shadow-xl border-gray-200 border rounded-lg">
@@ -216,9 +227,9 @@ export default function Home() {
         </div>
 
         {/* Descrition before footer */}
-        <div className="flex flex-col gap-5 items-center text-xl py-30">
+        <div className="flex flex-col gap-3 lg:gap-5 items-center text-base md:text-lg lg:text-xl py-15 md:py-30">
             <h1 className="font-bold">Final Project</h1>
-            <p className="text-center w-2/3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores omnis similique perspiciatis quaerat reprehenderit, quidem quasi nisi cumque explicabo praesentium, reiciendis beatae expedita vero doloribus magni eum id fuga dolore molestiae aliquid officia? Ad ullam quod similique quidem! Molestias sapiente ut aliquid amet eaque, recusandae maxime distinctio esse praesentium minus!</p>
+            <p className="text-center w-5/6 sm:w-2/3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores omnis similique perspiciatis quaerat reprehenderit, quidem quasi nisi cumque explicabo praesentium, reiciendis beatae expedita vero doloribus magni eum id fuga dolore molestiae aliquid officia? Ad ullam quod similique quidem! Molestias sapiente ut aliquid amet eaque, recusandae maxime distinctio esse praesentium minus!</p>
         </div>
     </div>
   );
