@@ -104,7 +104,7 @@ export default function Navbar() {
 
             {/* Login Sign up buttons */}
             {/* If user did not login yet show this button */}
-            <div className="hidden gap-2 text-white">
+            <div className="flex gap-2 text-white">
                 {/* Search icon for responsive */}
                 <div onClick={() => setShowSearchBar(!showSearchBar)} className=" text-white p-2 cursor-pointer hover:scale-105 active:scale-100 flex md:hidden items-center duration-200 hover:bg-[#ecaa79] active:bg-[#c18454] bg-[#E2A16F] rounded-md">
                     <FaSearch/>
@@ -114,7 +114,7 @@ export default function Navbar() {
             </div>
 
             {/* If user already have an account */}
-              <div className="flex gap-2 items-center relative">
+              <div className="hidden gap-2 items-center relative">
                 {/* Search icon for responsive */}
                 <div onClick={() => setShowSearchBar(!showSearchBar)} className=" text-white p-2 cursor-pointer hover:scale-105 active:scale-100 flex md:hidden items-center duration-200 hover:bg-[#ecaa79] active:bg-[#c18454] bg-[#E2A16F] rounded-md">
                     <FaSearch/>
