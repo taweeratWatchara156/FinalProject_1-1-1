@@ -18,7 +18,6 @@ export default function Navbar() {
     const [showProfileSetting, setShowProfileSettings] = useState<boolean>(false)
     const [showSubNav, setShowSubNav] = useState<boolean>(false)
     const [showSearchBar, setShowSearchBar] = useState<boolean>(false)
-    const [fixedNavbar, setFixedNavbar] = useState<boolean>(false)
 
     const handleSimpleSort = (value:string) => {
         setSubject(value)
@@ -46,16 +45,6 @@ export default function Navbar() {
     }
 
     useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY >= 100) setFixedNavbar(true)
-            else setFixedNavbar(false)
-        }
-
-        window.addEventListener('scroll', handleScroll)
-        return () => window.removeEventListener('scroll', handleScroll)
-    }, [])
-
-    useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
         const searchBar = document.getElementById("search-bar")
         const target = event.target as HTMLElement
@@ -72,7 +61,7 @@ export default function Navbar() {
     }, [])
 
   return (
-    <div className={`${fixedNavbar ? 'fixed' : ''} z-100 w-full`}>
+    <div className={`fixed z-100 w-full`}>
         <div className="w-full flex justify-between items-center bg-[#86B0BD] px-6 sm:px-10 lg:px-15 py-5">
             <div className={`flex gap-5 items-center`}>
                 {/* Logo */}
@@ -141,7 +130,7 @@ export default function Navbar() {
         <div className={`${showSubNav ? 'h-[364px] md:h-auto' : 'h-0 md:h-auto'} md:auto duration-200 overflow-hidden flex md:bg-none flex-col md:flex-row gap-0 md:gap-5 lg:gap-8 xl:gap-15 justify-center px-0 md:px-20`}>
             {
                Object.entries(sorting_data).map(([key, value], index) => {
-                return <button key={index} className={`${subject == key ? 'bg-[#86B0BD]' : 'bg-[#648995]'} ${fixedNavbar ? 'shadow-2xl' : ''} duration-200 text-white py-4 md:py-2 lg:py-3 xl:py-5 px-6 lg:px-8 xl:px-10 md:rounded-b-3xl cursor-pointer text-sm lg:text-base`} onClick={() => handleSimpleSort(key)}>{value}</button>
+                return <button key={index} className={`${subject == key ? 'bg-[#86B0BD]' : 'bg-[#648995]'} duration-200 text-white py-4 md:py-2 lg:py-3 xl:py-5 px-6 lg:px-8 xl:px-10 md:rounded-b-3xl cursor-pointer text-sm lg:text-base`} onClick={() => handleSimpleSort(key)}>{value}</button>
                })
             }
         </div>

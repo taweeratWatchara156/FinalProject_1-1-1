@@ -32,7 +32,9 @@ export default function RootLayout({
       <body className={`${sarabun.variable} ${rubik.className} w-screen h-screen flex flex-col antialiased`}>
         <AntdProvider>
           <Navbar/>
-          {children}
+          <div className="pt-30">
+            {children}
+          </div>
           <Footer/>
         </AntdProvider>
       </body>
