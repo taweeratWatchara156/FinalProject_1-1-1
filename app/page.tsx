@@ -153,7 +153,7 @@ export default function Home() {
       },
     ]
   return (
-    <div className="flex-1">
+    <div className="flex-1 pt-30">
         {/* Title */}
         <div className="flex gap-5ิ w-fit py-10 lg:py-20 mx-auto">
           <h1 className="text-lg lg:text-xl font">สรุปทั้งหมด ( {test_post_datas.length} )</h1>

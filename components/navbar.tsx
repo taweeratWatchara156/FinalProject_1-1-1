@@ -7,12 +7,16 @@ import { FaAngleDown, FaCog, FaGraduationCap, FaSearch } from "react-icons/fa"
 import { RiLogoutBoxRLine } from "react-icons/ri"
 import { SiGoogledocs } from "react-icons/si"
 import useSimpleSort from "./global_states/useSimpleSort"
+import useAuthen from "./global_states/useAuth"
 
 export default function Navbar() {
     const router = useRouter()
     const pathName = usePathname()
     const subject = useSimpleSort((state) => state.subject)
     const setSubject = useSimpleSort((state) => state.setSubject)
+    const isAuthenticated = useAuthen(s => s.isAuthenticated)
+    const user = useAuthen(s => s.user)
+    const setLogout = useAuthen(s => s.setLogout)
     const [grade, setGrade] = useState<string>("elementary")
     const [searchSubject, setSearchSubject] = useState<string>("math")
     const [showProfileSetting, setShowProfileSettings] = useState<boolean>(false)
@@ -22,6 +26,11 @@ export default function Navbar() {
     const handleSimpleSort = (value:string) => {
         setSubject(value)
         if (pathName != "/") router.push("/")
+    }
+
+    const handleLogout = () => {
+        setLogout()
+        router.push("/")
     }
 
     const sorting_data = {
@@ -93,7 +102,7 @@ export default function Navbar() {
 
             {/* Login Sign up buttons */}
             {/* If user did not login yet show this button */}
-            <div className="flex gap-2 text-white">
+            <div className={`${isAuthenticated ? 'hidden' : 'flex'} gap-2 text-white`}>
                 {/* Search icon for responsive */}
                 <div onClick={() => setShowSearchBar(!showSearchBar)} className=" text-white p-2 cursor-pointer hover:scale-105 active:scale-100 flex md:hidden items-center duration-200 hover:bg-[#ecaa79] active:bg-[#c18454] bg-[#E2A16F] rounded-md">
                     <FaSearch/>
@@ -103,23 +112,25 @@ export default function Navbar() {
             </div>
 
             {/* If user already have an account */}
-              <div className="hidden gap-2 items-center relative">
+              <div className={`${isAuthenticated ? 'flex' : 'hidden'} gap-2 items-center relative`}>
                 {/* Search icon for responsive */}
                 <div onClick={() => setShowSearchBar(!showSearchBar)} className=" text-white p-2 cursor-pointer hover:scale-105 active:scale-100 flex md:hidden items-center duration-200 hover:bg-[#ecaa79] active:bg-[#c18454] bg-[#E2A16F] rounded-md">
                     <FaSearch/>
                 </div>
                 <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
                   alt="default profile" className="w-[30px] rounded-full" onClick={() => setShowProfileSettings(!showProfileSetting)}/>
-                <span className="hidden md:flex text-white items-center gap-2">{username_length_limit("Taweerat Watcharamanokarn")} <FaAngleDown onClick={() => setShowProfileSettings(!showProfileSetting)} className={`${showProfileSetting ? 'rotate-180' : ''} hover:scale-105 duration-200 cursor-pointer`}/></span>
+                <span className="hidden md:flex text-white items-center gap-2">{username_length_limit(user?.username ? user?.username : "")} <FaAngleDown onClick={() => setShowProfileSettings(!showProfileSetting)} className={`${showProfileSetting ? 'rotate-180' : ''} hover:scale-105 duration-200 cursor-pointer`}/></span>
                 {/* Profile settings */}
                 <div className={`${showProfileSetting ? 'h-[120px]' : 'h-0'} shadow-md rounded-b-md justify-center flex flex-col duration-200 overflow-hidden absolute bg-[#86B0BD] top-12 right-0 w-[162px] md:w-full`}>
                     <span className="w-full flex justify-between hover:bg-[#a1cad6] duration-200 cursor-pointer py-2 px-2 text-white">
                         <span className="flex items-center gap-2"><FaCog/>Settings</span>
                     </span>
+                    {/* My Posts */}
                     <span onClick={() => router.push("/mypost")} className="w-full flex justify-between hover:bg-[#a1cad6] duration-200 cursor-pointer py-2 px-2 text-white">
                         <span className="flex items-center gap-2"><SiGoogledocs/>My Posts</span>
                     </span>
-                    <span className="w-full flex justify-between hover:bg-red-500 duration-200 cursor-pointer py-2 px-2 text-white">
+                    {/* Logout */}
+                    <span onClick={handleLogout} className="w-full flex justify-between hover:bg-red-500 duration-200 cursor-pointer py-2 px-2 text-white">
                         <span className="flex items-center gap-2"><RiLogoutBoxRLine/>Logout</span>
                     </span>
                 </div>

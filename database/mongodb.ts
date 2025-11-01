@@ -2,10 +2,9 @@ import mongoose from 'mongoose'
 
 export const connectDatabase = async () => {
     try{
-        const URI = process.env.MONGO_URI
-        if(!URI) return console.error("Invalid URI")
+        if(!process.env.MONGO_URI) return console.error("Invalid URI")
 
-        await mongoose.connect(URI)
+        await mongoose.connect(process.env.MONGO_URI)
     }catch(error){
         console.error(`Error occured while connecting to database:`, error)
     }
