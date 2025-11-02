@@ -8,7 +8,6 @@ export async function POST(req:NextRequest) {
     try{
         await connectDatabase()
         const { username, password } = await req.json()
-        console.log(username, password)
         const user = await User.findOne({ username })
         if (!user){
             return NextResponse.json({ message: "Invalid username or password" },{ status: 401 })

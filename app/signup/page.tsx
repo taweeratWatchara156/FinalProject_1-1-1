@@ -59,6 +59,7 @@ export default function SignUpPage() {
             setLoading(false)
         }catch(error){
             return toast.error("Error occured while creating an account!")
+        }finally{
             setLoading(false)
         }
     }
@@ -66,7 +67,7 @@ export default function SignUpPage() {
     const router = useRouter()
 
   return (
-    <div className='pt-30 flex-1 flex px-2 sm:px-0 justify-center items-center'>
+    <div className='py-45 flex-1 flex px-2 sm:px-0 justify-center items-center'>
         <form onSubmit={handleSubmit} className='w-full sm:w-auto px-5 md:px-10 py-10 flex flex-col gap-5 bg-[#86B0BD] rounded-md text-white shadow-xl border-[#67828b] border-2 border-dotted'>
             <h1 className='font-bold text-2xl sm:text-3xl mx-auto'>Sign up</h1>
             <div className='hidden sm:flex flex-col gap-3 w-[400px]'>

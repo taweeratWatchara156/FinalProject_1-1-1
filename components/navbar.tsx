@@ -17,7 +17,7 @@ export default function Navbar() {
     const isAuthenticated = useAuthen(s => s.isAuthenticated)
     const user = useAuthen(s => s.user)
     const setLogout = useAuthen(s => s.setLogout)
-    const [grade, setGrade] = useState<string>("elementary")
+    const [grade, setGrade] = useState<string>("mid")
     const [searchSubject, setSearchSubject] = useState<string>("math")
     const [showProfileSetting, setShowProfileSettings] = useState<boolean>(false)
     const [showSubNav, setShowSubNav] = useState<boolean>(false)
@@ -35,12 +35,11 @@ export default function Navbar() {
 
     const sorting_data = {
         "all": "ทั้งหมด",
-        "math":"คณิตศาสตร์",
-        "sci": "วิทยาศาสตร์",
-        "thai": "ภาษาไทย",
-        "eng": "ภาษาอังกฤษ",
-        "chem": "เคมี",
-        "bio": "ชีววิทยา"}
+        "คณิตศาสตร์":"คณิตศาสตร์",
+        "วิทยาศาสตร์": "วิทยาศาสตร์",
+        "ภาษาไทย": "ภาษาไทย",
+        "ภาษาอังกฤษ": "ภาษาอังกฤษ",
+        }
 
     const handleSearch = () => {
         router.push(`/${grade}/${searchSubject}`)
@@ -50,7 +49,7 @@ export default function Navbar() {
         if (username.length >= 10){
             return username.slice(0, 11) + "..."
         }
-            return username
+        return username
     }
 
     useEffect(() => {
@@ -76,16 +75,15 @@ export default function Navbar() {
                 {/* Logo */}
                 <div className="flex gap-2 font-bold text-white text-xl lg:text-2xl items-center cursor-pointer" onClick={() => router.push("/")}>
                     <FaGraduationCap className="text-2xl lg:text-3xl"/>
-                    <h1>Final Project</h1>
+                    <h1>SumSheet</h1>
                 </div>
 
                 {/* Select grade for search */}
                 <div id="search-bar" className={`${showSearchBar ? 'flex w-full justify-center py-5 z-200 bg-[#86B0BD] left-0' : 'hidden'}  duration-200 overflow-hidden absolute md:relative md:flex gap-2`}>
                     <Select id="search-element" options={[
-                    { value: "elementary", label: <span id="search-element">ประถมศึกษา</span> },
                     { value: "mid", label: <span id="search-element">มัธยมต้น</span> },
                     { value: "high", label: <span id="search-element">มัธยมต้นปลาย</span> }
-                    ]} className="w-[120px] sm:w-[150px]" defaultValue={"elementary"} onChange={(value, _) => setGrade(value)}/>
+                    ]} className="w-[120px] sm:w-[150px]" defaultValue={"mid"} onChange={(value, _) => setGrade(value)}/>
 
                     {/* Select subject for search */}
                     <Select id="search-element" options={[
@@ -93,8 +91,6 @@ export default function Navbar() {
                     { value: "sci", label: <span id="search-element">วิทยศาสตร์</span> },
                     { value: "thai", label: <span id="search-element">ภาษาไทย</span> },
                     { value: "eng", label: <span id="search-element">ภาษาอังกฤษ</span> },
-                    { value: "chem", label: <span id="search-element">เคมี</span> },
-                    { value: "bio", label: <span id="search-element">ชีววิทยา</span> },
                     ]} className="w-[120px] sm:w-[150px]" defaultValue={"math"} onChange={(value, _) => setSearchSubject(value)}/>
                     <button type="button" onClick={handleSearch} className={`bg-white text-sm px-5 rounded-md hover:scale-105 active:scale-100 duration-200 cursor-pointer`}>ค้นหา</button>
                 </div>
@@ -121,24 +117,24 @@ export default function Navbar() {
                   alt="default profile" className="w-[30px] rounded-full" onClick={() => setShowProfileSettings(!showProfileSetting)}/>
                 <span className="hidden md:flex text-white items-center gap-2">{username_length_limit(user?.username ? user?.username : "")} <FaAngleDown onClick={() => setShowProfileSettings(!showProfileSetting)} className={`${showProfileSetting ? 'rotate-180' : ''} hover:scale-105 duration-200 cursor-pointer`}/></span>
                 {/* Profile settings */}
-                <div className={`${showProfileSetting ? 'h-[120px]' : 'h-0'} shadow-md rounded-b-md justify-center flex flex-col duration-200 overflow-hidden absolute bg-[#86B0BD] top-12 right-0 w-[162px] md:w-full`}>
+                <div className={`${showProfileSetting ? 'h-[120px]' : 'h-0'} shadow-md rounded-b-md justify-center flex flex-col duration-200 overflow-hidden absolute bg-[#86B0BD] top-12 right-0 w-[162px]`}>
                     <span className="w-full flex justify-between hover:bg-[#a1cad6] duration-200 cursor-pointer py-2 px-2 text-white">
-                        <span className="flex items-center gap-2"><FaCog/>Settings</span>
+                        <span onClick={() => router.push('/user/settings')} className="flex items-center gap-2"><FaCog/>ตั้งค่าโปรไฟล์</span>
                     </span>
                     {/* My Posts */}
                     <span onClick={() => router.push("/mypost")} className="w-full flex justify-between hover:bg-[#a1cad6] duration-200 cursor-pointer py-2 px-2 text-white">
-                        <span className="flex items-center gap-2"><SiGoogledocs/>My Posts</span>
+                        <span className="flex items-center gap-2"><SiGoogledocs/>โพสต์ของฉัน</span>
                     </span>
                     {/* Logout */}
                     <span onClick={handleLogout} className="w-full flex justify-between hover:bg-red-500 duration-200 cursor-pointer py-2 px-2 text-white">
-                        <span className="flex items-center gap-2"><RiLogoutBoxRLine/>Logout</span>
+                        <span className="flex items-center gap-2"><RiLogoutBoxRLine/>ออกจากระบบ</span>
                     </span>
                 </div>
               </div>
         </div>
 
         {/* simple sorting post in home page */}
-        <div className={`${showSubNav ? 'h-[364px] md:h-auto' : 'h-0 md:h-auto'} md:auto duration-200 overflow-hidden flex md:bg-none flex-col md:flex-row gap-0 md:gap-5 lg:gap-8 xl:gap-15 justify-center px-0 md:px-20`}>
+        <div className={`${showSubNav ? 'h-[260px] md:h-auto' : 'h-0 md:h-auto'} md:auto duration-200 overflow-hidden flex md:bg-none flex-col md:flex-row gap-0 md:gap-5 lg:gap-8 xl:gap-15 justify-center px-0 md:px-20`}>
             {
                Object.entries(sorting_data).map(([key, value], index) => {
                 return <button key={index} className={`${subject == key ? 'bg-[#86B0BD]' : 'bg-[#648995]'} duration-200 text-white py-4 md:py-2 lg:py-3 xl:py-5 px-6 lg:px-8 xl:px-10 md:rounded-b-3xl cursor-pointer text-sm lg:text-base`} onClick={() => handleSimpleSort(key)}>{value}</button>

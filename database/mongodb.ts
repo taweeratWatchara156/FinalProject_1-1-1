@@ -1,4 +1,6 @@
 import mongoose from 'mongoose'
+import '@/models/user'
+import '@/models/post'
 
 export const connectDatabase = async () => {
     try{

@@ -7,7 +7,7 @@ export async function POST(req:NextRequest) {
     try{
         await connectDatabase()
         const { username, email, password } = await req.json()
-        const user_img = "public/default_profile.jpg"
+        const user_img = "/default_profile.jpg"
 
         const existed_email = await User.findOne({ email })
         if (existed_email){
