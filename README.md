@@ -7,5 +7,7 @@
 
 - [@Taweerat Watcharamanokarn 68070050](https://github.com/taweeratWatchara156)
 - [@Jirayu Janjum 68070016](https://github.com/ThepFilm)
-- [@Pathompoom  68070095](https://github.com/isArtenstuff)
+- [@Pathompoom 68070095](https://github.com/isArtenstuff)
+- [@ปรณัฏฐ์ สุดสวาท 68070284]
+- [@ชินภพ เสติ 68070239]
 
