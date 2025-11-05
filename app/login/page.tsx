@@ -64,7 +64,7 @@ export default function LoginPage() {
             }
         }catch(error){
             setLoading(false)
-            return toast.error("Error occured while logging in!")
+            return toast.error("เกิดปัญหาระหว่างทำการ Login")
         }
     }
 

@@ -158,7 +158,7 @@ export default function Home() {
 
         {/* Descrition before footer */}
         <div className="flex flex-col gap-3 lg:gap-5 items-center text-base md:text-lg lg:text-xl py-15 md:py-30">
-            <h1 className="font-bold">Final Project</h1>
+            <h1 className="font-bold">SumSheet</h1>
             <p className="text-center w-5/6 sm:w-2/3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores omnis similique perspiciatis quaerat reprehenderit, quidem quasi nisi cumque explicabo praesentium, reiciendis beatae expedita vero doloribus magni eum id fuga dolore molestiae aliquid officia? Ad ullam quod similique quidem! Molestias sapiente ut aliquid amet eaque, recusandae maxime distinctio esse praesentium minus!</p>
         </div>
     </div>

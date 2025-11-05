@@ -35,7 +35,7 @@ export default function SignUpPage() {
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
         if (!passwordRegex.test(password)) {
-            toast.error("Password must be at least 8 characters long and contain one uppercase, one lowercase, one number, and one special character.");
+            toast.error("รหัสผ่านควรมีความยาวอย่างน้อย 8 ตัวอักษร และ มีตัวอักษรพิเศษและตัวหนังสืออย่างน้อย 1 ตัว");
             setLoading(false)
             return;
         }

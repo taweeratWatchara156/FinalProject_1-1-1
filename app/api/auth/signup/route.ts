@@ -11,18 +11,18 @@ export async function POST(req:NextRequest) {
 
         const existed_email = await User.findOne({ email })
         if (existed_email){
-            return NextResponse.json({ "message": "Email already exists" }, { status: 400 })
+            return NextResponse.json({ "message": "Email นี้ถูกใช้งานแล้ว" }, { status: 400 })
         }
 
         const existed_username = await User.findOne({ username })
         if (existed_username){
-            return NextResponse.json({ "message": "Username already exists" }, { status: 400 })
+            return NextResponse.json({ "message": "Username ถูกใช้งานแล้ว" }, { status: 400 })
         }
 
         const encoded_password = await bcrypt.hash(password, 10)
         await User.create({ username, email, password:encoded_password, user_img })
-        return NextResponse.json({ "message": "Created user successfully" }, { status: 201 })
+        return NextResponse.json({ "message": "สมัครสมาชิกเสร็จสิ้น" }, { status: 201 })
     }catch(error){
-        return NextResponse.json({ "message": "Error occured while creating user" }, { status: 500 })
+        return NextResponse.json({ "message": "เกิดปัญหาระหว่างทำการสมัครสมาชิก" }, { status: 500 })
     }
 }

@@ -8,12 +8,12 @@ export interface Post {
   _id: string;
   title: string;
   description: string;
-  owner: Owner; // We'll assume you populated this
+  owner: Owner;
   sheets: string[];
   views: number;
-  likes: string[]; // This is an array of IDs
+  likes: string[];
   grade: string;
   category: string;
-  createdAt: string; // We need this for sorting
+  createdAt: string;
   updatedAt: string;
 }
