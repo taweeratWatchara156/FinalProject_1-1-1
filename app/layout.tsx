@@ -4,6 +4,9 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 import AntdProvider from "@/components/provider/AntdProvider";
 import Footer from "@/components/footer";
+import { Toaster } from "react-hot-toast";
+import Loading from "@/components/loading";
+import ProtectedRoute from "@/components/protectedroute";
 
 const sarabun = Sarabun({
   variable: "--font-sarabun",
@@ -31,9 +34,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${sarabun.variable} ${rubik.className} w-screen h-screen flex flex-col antialiased`}>
         <AntdProvider>
-          <Navbar/>
-          {children}
-          <Footer/>
+          <ProtectedRoute>
+            <Navbar/>
+            {children}
+            <Footer/>
+            <Toaster position="bottom-right"/>
+            <Loading/>
+          </ProtectedRoute>
         </AntdProvider>
       </body>
     </html>
