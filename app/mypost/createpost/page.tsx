@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import React, { FormEvent, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
-export default function page() {
+export default function Page() {
     const [grade, setGrade] = useState<string>("มัธยมต้น")
     const [subject, setSubject] = useState<string>("คณิตศาสตร์")
     const [title, setTitle] = useState<string>("")
@@ -21,7 +21,7 @@ export default function page() {
         if (!token){
             router.push("/")
         }
-    },[])
+    },[router])
 
     const uploadFileToCloudinary = async (file:File) => {
         const formData = new FormData()
@@ -118,7 +118,7 @@ export default function page() {
                     <Select id="search-element" options={[
                     { value: "มัธยมต้น", label: <span id="search-element">มัธยมต้น</span> },
                     { value: "มัธยมปลาย", label: <span id="search-element">มัธยมปลาย</span> }
-                    ]} className="w-[120px] sm:w-[150px]" defaultValue={"มัธยมต้น"} onChange={(value, _) => setGrade(value)}/>
+                    ]} className="w-[120px] sm:w-[150px]" defaultValue={"มัธยมต้น"} onChange={(value) => setGrade(value)}/>
 
                     {/* Select subject for search */}
                     <Select id="search-element" options={[
@@ -126,7 +126,7 @@ export default function page() {
                     { value: "วิทยาศาสตร์", label: <span id="search-element">วิทยศาสตร์</span> },
                     { value: "ภาษาไทย", label: <span id="search-element">ภาษาไทย</span> },
                     { value: "ภาษาอังกฤษ", label: <span id="search-element">ภาษาอังกฤษ</span> },
-                    ]} className="w-[120px] sm:w-[150px]" defaultValue={"คณิตศาสตร์"} onChange={(value, _) => setSubject(value)}/>
+                    ]} className="w-[120px] sm:w-[150px]" defaultValue={"คณิตศาสตร์"} onChange={(value) => setSubject(value)}/>
                 </div>
                 <Upload
                     action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"

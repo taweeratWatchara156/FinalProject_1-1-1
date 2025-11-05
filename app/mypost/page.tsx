@@ -20,7 +20,7 @@ export default function MyPostPage() {
         if (!token){
             router.push("/")
         }
-    },[])
+    },[router])
 
     useEffect(() => {
       const fetchPosts = async () => {
@@ -45,7 +45,7 @@ export default function MyPostPage() {
         });
 
         return filteredGradePosts
-    }, [posts]);
+    }, [posts, user]);
 
     const title_length_limit = (title:string) => {
         if (title.length >= 30){
@@ -72,8 +72,8 @@ export default function MyPostPage() {
               return (
                 <div onClick={() => router.push(`/posts/${post._id}`)} key={post._id} className="duration-200 hover:scale-105 cursor-pointer active:scale-100 hover:shadow-2xl relative p-4 gap-2 flex flex-col w-[320px] justify-center shadow-xl border-gray-200 border rounded-lg">
                   <div className="flex gap-2">
-                    <img src="/default_profile.jpg"
-                      alt={post.owner.username + "'s profile"} className="w-[25px] h-[25px] rounded-full"/>
+                    <Image src="/default_profile.jpg"
+                      alt={post.owner.username + "'s profile"} width={25} height={25} className="rounded-full"/>
                     <span>{post.owner.username}</span>
                   </div>
 
@@ -88,7 +88,7 @@ export default function MyPostPage() {
                   </div>
                   
                   <div className="relative w-full h-[200px] overflow-hidden rounded-md border-3 border-gray-200 border-dotted">
-                    <Image src={post.sheets[0]}/>
+                    <Image src={post.sheets[0]} alt={post._id}/>
                   </div>
 
                   {/* Post title */}

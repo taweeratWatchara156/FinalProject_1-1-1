@@ -7,13 +7,7 @@ import toast from 'react-hot-toast'
 import { AiFillLike, AiOutlineLoading } from 'react-icons/ai'
 import { FaEye } from 'react-icons/fa'
 
-export default function SearhResultPage() {
-  const { grade, subject } : { grade:string, subject:string } = useParams()
-  const [posts, setPosts] = useState<Post[]>([])
-  const [loading, setLoading] = useState<boolean>(false)
-  const route = useRouter()
-
-  const grade_convert = {
+const grade_convert = {
     "mid": "มัธยมต้น",
     "high": "มัธยมปลาย",
   }
@@ -23,6 +17,13 @@ export default function SearhResultPage() {
     "thai": "ภาษาไทย",
     "eng": "ภาษาอังกฤษ",
   }
+
+export default function SearhResultPage() {
+  const { grade, subject } : { grade:string, subject:string } = useParams()
+  const [posts, setPosts] = useState<Post[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const route = useRouter()
+
 
     useEffect(() => {
       const fetchPosts = async () => {
@@ -41,8 +42,8 @@ export default function SearhResultPage() {
     }, [])
 
     const sortedPosts = useMemo(() => {
-        const grade_converted = grade_convert[grade]
-        const category_converted = subject_convert[subject]
+        const grade_converted = grade_convert[grade as keyof typeof grade_convert]
+        const category_converted = subject_convert[subject as keyof typeof subject_convert]
 
         const filteredGradePosts = posts.filter(post => {
             const gradeMatch = post.grade === grade_converted;
@@ -51,7 +52,7 @@ export default function SearhResultPage() {
         });
 
         return filteredGradePosts
-    }, [posts]);
+    }, [posts, grade, subject]);
 
     const title_length_limit = (title:string) => {
         if (title.length >= 30){
@@ -68,15 +69,15 @@ export default function SearhResultPage() {
 
   return (
     <div className='py-45 flex-1'>
-          <h1 className='text-base md:text-lg ml-5 md:ml-10 mb-10'>{grade_convert[grade]} &gt; {subject_convert[subject]}</h1>
+          <h1 className='text-base md:text-lg ml-5 md:ml-10 mb-10'>{grade_convert[grade as keyof typeof grade_convert]} &gt; {subject_convert[subject as keyof typeof subject_convert]}</h1>
 
           <div className="grid grid-cols-[repeat(auto-fit,_minmax(320px,_1fr))] gap-8 justify-items-center">
             {sortedPosts.map((post) => {
               return (
                 <div onClick={() => route.push(`/posts/${post._id}`)} key={post._id} className="duration-200 hover:scale-105 cursor-pointer active:scale-100 hover:shadow-2xl relative p-4 gap-2 flex flex-col w-[320px] justify-center shadow-xl border-gray-200 border rounded-lg">
                   <div className="flex gap-2">
-                    <img src="/default_profile.jpg"
-                      alt={post.owner.username + "'s profile"} className="w-[25px] h-[25px] rounded-full"/>
+                    <Image src="/default_profile.jpg"
+                      alt={post.owner.username + "'s profile"} width={25} height={25} className="rounded-full"/>
                     <span>{post.owner.username}</span>
                   </div>
 
@@ -91,7 +92,7 @@ export default function SearhResultPage() {
                   </div>
                   
                   <div className="relative w-full h-[200px] overflow-hidden rounded-md border-3 border-gray-200 border-dotted">
-                    <Image src={post.sheets[0]}/>
+                    <Image src={post.sheets[0]} alt={post._id}/>
                   </div>
 
                   {/* Post title */}

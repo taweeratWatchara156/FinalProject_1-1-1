@@ -1,6 +1,5 @@
 import { connectDatabase } from "@/database/mongodb";
 import Post from "@/models/post";
-import User from "@/models/user";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {

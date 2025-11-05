@@ -2,7 +2,7 @@
 
 import useAuthen from '@/components/global_states/useAuth'
 import useLoading from '@/components/global_states/useLoading'
-import { Button, Checkbox, Input, Space } from 'antd'
+import { Button, Checkbox, Input } from 'antd'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
 import React, { FormEvent, useEffect, useState } from 'react'
@@ -28,7 +28,7 @@ export default function LoginPage() {
             setUsername(rememberUsername)
             setRememberUsername(true)
         }
-    }, [])
+    }, [router])
 
     const handleSubmit = async (e:FormEvent) => {
         e.preventDefault()
@@ -63,6 +63,7 @@ export default function LoginPage() {
                 toast.error(data.message)
             }
         }catch(error){
+            console.error(error)
             setLoading(false)
             return toast.error("เกิดปัญหาระหว่างทำการ Login")
         }
@@ -85,7 +86,7 @@ export default function LoginPage() {
 
             <div className='hidden sm:flex'><Button htmlType='submit' size='large' style={{backgroundColor: "#E2A16F", border: "#a06f49", color:"white"}} className='w-full'>Login</Button></div>
             <div className='flex sm:hidden'><Button htmlType='submit' size='middle' style={{backgroundColor: "#E2A16F", border: "#a06f49", color:"white"}} className='w-full'>Login</Button></div>
-            <span className='text-sm sm:text-base mx-auto'>Don't have an account? <span onClick={() => router.push("/signup")} className='text-[#3f5860] underline cursor-pointer'>Sign up</span></span>
+            <span className='text-sm sm:text-base mx-auto'>Don&apos;t have an account? <span onClick={() => router.push("/signup")} className='text-[#3f5860] underline cursor-pointer'>Sign up</span></span>
         </form>
     </div>
   )
