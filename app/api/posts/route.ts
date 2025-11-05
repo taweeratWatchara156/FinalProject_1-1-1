@@ -1,9 +1,8 @@
 import { connectDatabase } from "@/database/mongodb";
 import Post from "@/models/post";
-import User from "@/models/user";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req:NextRequest) {
+export async function GET() {
     try{
         await connectDatabase()
         const posts = await Post.find({}).populate("owner", "username user_img")

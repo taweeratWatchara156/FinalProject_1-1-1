@@ -1,6 +1,6 @@
 import { connectDatabase } from "@/database/mongodb";
 import User from "@/models/user";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function GET() {
     try{
@@ -8,6 +8,7 @@ export async function GET() {
         const users = await User.find({})
         return NextResponse.json({ users })
     }catch(error){
+        console.error(error)
         return NextResponse.json({ "message": "Error occured while fetching users data" }, { status: 500 })
     }
 }

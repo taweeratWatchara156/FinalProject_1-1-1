@@ -23,6 +23,7 @@ export async function POST(req:NextRequest) {
         await User.create({ username, email, password:encoded_password, user_img })
         return NextResponse.json({ "message": "สมัครสมาชิกเสร็จสิ้น" }, { status: 201 })
     }catch(error){
+        console.error(error)
         return NextResponse.json({ "message": "เกิดปัญหาระหว่างทำการสมัครสมาชิก" }, { status: 500 })
     }
 }

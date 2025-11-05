@@ -8,7 +8,7 @@ import toast from "react-hot-toast"
 import { AiFillLike, AiOutlineLike, AiOutlineLoading } from "react-icons/ai"
 import { FaEye } from "react-icons/fa"
 
-export default function page() {
+export default function Page() {
     const { id }: { id:string } = useParams()
     const [post, setPost] = useState<Post | null>(null)
     const [loading, setLoading] = useState(true)
@@ -80,6 +80,7 @@ export default function page() {
                 setPost({ ...post, likes: originalLikes });
             }
         } catch (error) {
+            console.error(error)
             toast.error("An error occurred.");
             setPost({ ...post, likes: originalLikes });
         }
@@ -97,7 +98,7 @@ export default function page() {
     <div className="flex-1 py-45 px-3 md:px-0 flex items-center justify-center">
       <div className='w-full md:w-[800px] p-5 flex flex-col gap-5 rounded-md text-white shadow-xl border-[#67828b] border-2 border-dotted'>
           <div className="flex text-black gap-2 items-center">
-            <img src={post?.owner.user_img} alt={post?.owner.username} className="w-[30px] h-[30px] rounded-full"/>
+            <Image src={post?.owner.user_img} alt={post?.owner.username} width={30} height={30} className="rounded-full"/>
             <span>{post?.owner.username}</span>
           </div>
           <div className="flex flex-col gap-2">
@@ -108,7 +109,7 @@ export default function page() {
             {
               post?.sheets.map((sheet, index) => {
                   return <div key={index} className="relative w-[180] flex items-center overflow-hidden rounded-md border-3 border-gray-200 border-dotted">
-                    <Image src={sheet}/>
+                    <Image alt={String(index)} src={sheet}/>
                   </div>
               })
             }
